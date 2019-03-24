@@ -1,0 +1,27 @@
+html{
+  font-family: 'Sigmar One', cursive;
+}
+
+body{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 1;
+  z-index: 3;
+  font-size: 7vh;
+}
+
+.status{
+  width: 100%;
+  font-size: 5vw;
+  text-align: center;
+  color: white;
+  background-color: black;
+  height: 40vh;
+}
+
+
+
