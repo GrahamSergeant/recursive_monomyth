@@ -2,7 +2,6 @@ google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
  function drawChart(newData) {
-      console.log('foo');
       var data = new google.visualization.DataTable();
       data.addColumn('number', 'challenges');
       data.addColumn('number', 'Level');

@@ -58,7 +58,8 @@
     level : 0,
     stage : 0,
     chapter : 0,
-    chartData : [[0,0,0,0]]
+    chartData : [[0,0,0,0]],
+    wordTreeData:  [['Phrases'],['Storyworld L0 S0 C0']]
   };
 
   let controller = {
@@ -101,6 +102,12 @@
     },
     getChartData : function(){
       return(model.chartData);
+    },
+    setWordTreeData : function(){
+      model.wordTreeData.push(['L' + this.getLevel() + ' S' + this.getStage() +  ' C' + this.getChapter()])
+    },
+    getWordTreeData : function(){
+      return(model.wordTreeData);
     },
     randomResult : function(){
       //random selection - as level increases: 0 - 99 value range
@@ -192,6 +199,9 @@
               //update graph
               controller.setChartData();
               drawChart(controller.getChartData());
+              //update wordtree
+              controller.setWordTreeData();
+              drawTree(controller.getWordTreeData());
             }
     };
  controller.init();
