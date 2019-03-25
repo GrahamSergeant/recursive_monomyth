@@ -1,56 +1,56 @@
 (function(){
   let model = {
       init : function(){
-        return this.monoMythStages[0];
+        return this.monoMythChapters[0];
       },
 
-      monoMythStages : [
+      monoMythChapters : [
       {
-        stage: "Ordinary World",
+        chapter: "Ordinary World",
         colour: "DeepSkyBlue",
       },
       {
-        stage: "Call to Adventure",
+        chapter: "Call to Adventure",
         colour: "OrangeRed",
       },
       {
-        stage: "Refusal",
+        chapter: "Refusal",
         colour: "DarkSlateGray",
       },
       {
-        stage: "Meeting with the Mentor",
+        chapter: "Meeting with the Mentor",
         colour: "Indigo",
       },
       {
-        stage: "Crossing the Threshold",
+        chapter: "Crossing the Threshold",
         colour: "SpringGreen",
       },
       {
-        stage: "Tests, Allies, Enemies",
+        chapter: "Tests, Allies, Enemies",
         colour: "Fuchsia",
       },
       {
-        stage: "Approach to the inmost cave",
+        chapter: "Approach to the inmost cave",
         colour: "Sienna",
       },
       {
-        stage: "Ordeal",
+        chapter: "Ordeal",
         colour: "CornflowerBlue",
       },
       {
-        stage: "Reward (Seizing the Sword)",
+        chapter: "Reward (Seizing the Sword)",
         colour: "Gold",
       },
       {
-        stage: "The Road Back",
+        chapter: "The Road Back",
         colour: "YellowGreen",
       },
       {
-        stage: "Ressurection",
+        chapter: "Ressurection",
         colour: "Maroon",
       },
       {
-        stage: "Return with Elixir",
+        chapter: "Return with Elixir",
         colour: "MediumBlue",
       }
     ],
@@ -90,11 +90,11 @@
     setChapter : function(value){
       model.chapter = value;
     },
-    getMonoMythStage : function(value){
-      return(model.monoMythStages[value].stage);
+    getMonoMythChapter : function(value){
+      return(model.monoMythChapters[value].chapter);
     },
     getMonoMythColour : function(value){
-      return(model.monoMythStages[value].colour);
+      return(model.monoMythChapters[value].colour);
     },
     setChartData : function(){
       model.chartData.push([this.getChallengesDone(),this.getLevel(),this.getStage(),this.getChapter()]);
@@ -111,7 +111,7 @@
             let levelElement = document.getElementsByClassName("level")[0];
             let stageElement = document.getElementsByClassName("stage")[0];
             let chapterElement = document.getElementsByClassName("chapter")[0];
-            statusElement.textContent = startState.stage;
+            statusElement.textContent = startState.chapter;
             statusElement.style.backgroundColor = startState.colour;
             let pass = document.getElementsByClassName("pass")[0];
             let fail = document.getElementsByClassName("fail")[0];
@@ -177,7 +177,7 @@
                 current = controller.getLevel();
               }
               // display status, level, stage, chapter
-              statusElement.textContent = controller.getMonoMythStage(current);
+              statusElement.textContent = controller.getMonoMythChapter(current);
               statusElement.style.backgroundColor = controller.getMonoMythColour(current);
               levelElement.textContent = "LEVEL: "+ controller.getLevel();
               stageElement.textContent = "STAGE: "+ controller.getStage();
