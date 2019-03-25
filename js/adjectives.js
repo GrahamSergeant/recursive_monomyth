@@ -100,30 +100,6 @@ let adjectives = { getAdjective :
     "delicious",
     "fragrant",
     "painless",
-    "smooth",
-    "kooky",
-    "little",
-    "gleeful",
-    "gentle",
-    "softie",
-    "easypeasylemoncheesy",
-    "folksy",
-    "sugary",
-    "elementary",
-    "aromatic",
-    "simple",
-    "joyful",
-    "meek",
-    "innocent",
-    "easy as pie",
-    "paltry",
-    "injurious",
-    "no sweat",
-    "extra-small",
-    "sapless",
-    "big-hearted",
-    "mellow",
-    "laidback",
-    "breezy"
+    "smooth"
   ]
-}
+};

@@ -101,6 +101,17 @@
     },
     getChartData : function(){
       return(model.chartData);
+    },
+    randomResult : function(){
+      //random selection - as level increases: 0 - 99 value range
+      //chance scaled from 0 = 1% chance of pass to 100 = 100% chance of pass
+      let currentLevel = this.getLevel();
+      currentLevel++
+      if (currentLevel < Math.floor(Math.random() * Math.floor(99))){
+        return false;
+      } else {
+        return true;
+      }
     }
   };
 
@@ -113,15 +124,15 @@
             let chapterElement = document.getElementsByClassName("chapter")[0];
             statusElement.textContent = "The " + adjectives.getAdjective[controller.getLevel()] + " " + startState.chapter + " of the " + startState.chapter;
             statusElement.style.backgroundColor = startState.colour;
-            let pass = document.getElementsByClassName("pass")[0];
-            let fail = document.getElementsByClassName("fail")[0];
-            pass.onclick = function(){self.render(statusElement, levelElement, stageElement, chapterElement, true)};
-            fail.onclick = function(){self.render(statusElement, levelElement, stageElement, chapterElement, false)};
+            let challenge = document.getElementsByClassName("challenge")[0];
+            challenge.onclick = function(){self.render(statusElement, levelElement, stageElement, chapterElement, controller.randomResult())};
     },
-    render : function(statusElement, levelElement, stageElement, chapterElement, type){
+    render : function(statusElement, levelElement, stageElement, chapterElement, challengeOutcome){
               controller.setChallengesDone();
-              if (type){
+              let challengeOutput = document.getElementsByClassName("outcome")[0];
+              if (challengeOutcome === true){
                 //pass
+                challengeOutput.value = 'Pass';
                 if (controller.getChapter() === 11){
                   if (controller.getLevel() === 0){
                     if (controller.getStage() === 11){
@@ -163,22 +174,18 @@
                 }
               } else {
                 //fail
+                challengeOutput.value = 'Fail'
                 //level regression
                 let level = controller.getLevel();
-                level++;
+                if (level < 98){
+                  level++;
+                }
                 controller.setLevel(level);
               }
-              let current;
-              if (controller.getChapter() > 0) {
-                current = controller.getChapter();
-              } else if (controller.getStage() > 0) {
-                  current = controller.getStage();
-              } else {
-                current = controller.getLevel();
-              }
               // display status, level, stage, chapter
-              statusElement.textContent = "The " + adjectives.getAdjective[controller.getLevel()] + " " + controller.getMonoMythChapter(current) + " of the " + controller.getMonoMythChapter(controller.getStage());
-              statusElement.style.backgroundColor = controller.getMonoMythColour(current);
+              statusElement.textContent = "The " + adjectives.getAdjective[controller.getLevel()] + " " + controller.getMonoMythChapter(controller.getChapter()) + " of the " + controller.getMonoMythChapter(controller.getStage());
+              //
+              statusElement.style.backgroundColor = controller.getMonoMythColour(controller.getChapter());
               levelElement.textContent = "LEVEL: "+ controller.getLevel();
               stageElement.textContent = "STAGE: "+ controller.getStage();
               chapterElement.textContent = "CHAPTER: "+ controller.getChapter();
