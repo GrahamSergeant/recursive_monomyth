@@ -5,13 +5,16 @@ html{
 body{
   height: 100vh;
   width: 100vw;
+}
+
+.view{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-shrink: 1;
   z-index: 3;
-  font-size: 7vh;
+  font-size: 3vh;
 }
 
 .status{
@@ -20,8 +23,14 @@ body{
   text-align: center;
   color: white;
   background-color: black;
-  height: 40vh;
+  height: 20vh;
 }
 
+#curve_chart{
+  text-align: center;
+  margin: 0 auto;
+  width: 80vw;
+  height: 40vh;
+}
 
 

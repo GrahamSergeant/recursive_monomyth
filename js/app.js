@@ -54,9 +54,11 @@
         colour: "MediumBlue",
       }
     ],
+    challengesDone : 0,
     level : 0,
     stage : 0,
-    chapter : 0
+    chapter : 0,
+    chartData : [[0,0,0,0]]
   };
   
   let controller = {
@@ -64,37 +66,41 @@
             let startState = model.init();
             view.init(startState);
       },
-      
+    getChallengesDone : function(){
+      return model.challengesDone;
+    },
     getLevel : function(){
-      //console.log("getLevel: "+model.level);
       return model.level;
     },
     getStage : function(){
-      //console.log("getStage: "+model.stage);
       return model.stage;
     },
     getChapter : function(){
-      //console.log("getChapter: "+model.chapter);
       return model.chapter;
     },
+    setChallengesDone : function(){
+      model.challengesDone++;
+    },
     setLevel : function(value){
-      console.log("setLevel: "+value);
       model.level = value;
     },
     setStage : function(value){
-      console.log("setStage: "+value);
       model.stage = value;
     },
     setChapter : function(value){
-      console.log("setChapter: "+value);
       model.chapter = value;
     },
-    
     getMonoMythStage : function(value){
       return(model.monoMythStages[value].stage);
     },
     getMonoMythColour : function(value){
       return(model.monoMythStages[value].colour);
+    },
+    setChartData : function(){
+      model.chartData.push([this.getChallengesDone(),this.getLevel(),this.getStage(),this.getChapter()]);
+    },
+    getChartData : function(){
+      return(model.chartData);
     }
   };
 
@@ -113,6 +119,7 @@
             fail.onclick = function(){self.render(statusElement, levelElement, stageElement, chapterElement, false)};
     },
     render : function(statusElement, levelElement, stageElement, chapterElement, type){
+              controller.setChallengesDone();
               if (type){
                 //pass
                 if (controller.getChapter() >= 11){
@@ -173,6 +180,10 @@
               levelElement.textContent = "LEVEL: "+ controller.getLevel();
               stageElement.textContent = "STAGE: "+ controller.getStage();
               chapterElement.textContent = "CHAPTER: "+ controller.getChapter();
+              //update graph
+              controller.setChartData();
+              console.log(controller.getChartData());
+              drawChart(controller.getChartData());
             }
     };
  controller.init();
