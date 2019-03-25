@@ -3,7 +3,7 @@
       init : function(){
         return this.monoMythStages[0];
       },
-    
+
       monoMythStages : [
       {
         stage: "Ordinary World",
@@ -60,7 +60,7 @@
     chapter : 0,
     chartData : [[0,0,0,0]]
   };
-  
+
   let controller = {
     init : function(){
             let startState = model.init();
@@ -122,9 +122,9 @@
               controller.setChallengesDone();
               if (type){
                 //pass
-                if (controller.getChapter() >= 11){
+                if (controller.getChapter() === 11){
                   if (controller.getLevel() === 0){
-                    if (controller.getStage() > 11){
+                    if (controller.getStage() === 11){
                       //reset
                       controller.setStage(0);
                       controller.setChapter(0);
@@ -133,6 +133,7 @@
                       let stage = controller.getStage();
                       stage++;
                       controller.setStage(stage);
+                      controller.setChapter(0);
                     }
                   } else {
                     //level progression
@@ -140,10 +141,10 @@
                       let level = controller.getLevel();
                       level--;
                       controller.setLevel(level);
+                      controller.setChapter(0);
                     }
-                    controller.setChapter(0);
-                    if (controller.getStage() >= 11){
-                      //rest
+                    if (controller.getStage() === 11){
+                      //reset
                       controller.setStage(0);
                       controller.setChapter(0);
                     } else {
@@ -151,6 +152,7 @@
                       let stage = controller.getStage();
                       stage++;
                       controller.setStage(stage);
+                      controller.setChapter(0);
                     }
                   }
                 } else {
@@ -182,7 +184,6 @@
               chapterElement.textContent = "CHAPTER: "+ controller.getChapter();
               //update graph
               controller.setChartData();
-              console.log(controller.getChartData());
               drawChart(controller.getChartData());
             }
     };

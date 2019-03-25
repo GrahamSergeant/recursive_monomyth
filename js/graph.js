@@ -2,7 +2,6 @@ google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
  function drawChart(newData) {
-      console.log('foo');
       var data = new google.visualization.DataTable();
       data.addColumn('number', 'Challenges Done');
       data.addColumn('number', 'Stage');
@@ -17,8 +16,8 @@ google.charts.load('current', {'packages':['corechart']});
               },
       legend: { position: 'bottom' },
       title: 'Recursive Monomyth Logging Graph',
-      
-      
+
+
       trendlines: {
       1: {
         type: 'linear',
@@ -52,4 +51,3 @@ google.charts.load('current', {'packages':['corechart']});
 
         chart.draw(data, options);
       }
-      
