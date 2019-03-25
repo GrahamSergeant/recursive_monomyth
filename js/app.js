@@ -42,7 +42,7 @@
         colour: "Gold",
       },
       {
-        chapter: "The Road Back",
+        chapter: "Road Back",
         colour: "YellowGreen",
       },
       {
@@ -111,7 +111,7 @@
             let levelElement = document.getElementsByClassName("level")[0];
             let stageElement = document.getElementsByClassName("stage")[0];
             let chapterElement = document.getElementsByClassName("chapter")[0];
-            statusElement.textContent = startState.chapter;
+            statusElement.textContent = "The " + adjectives.getAdjective[controller.getLevel()] + " " + startState.chapter + " of the " + startState.chapter;
             statusElement.style.backgroundColor = startState.colour;
             let pass = document.getElementsByClassName("pass")[0];
             let fail = document.getElementsByClassName("fail")[0];
@@ -177,7 +177,7 @@
                 current = controller.getLevel();
               }
               // display status, level, stage, chapter
-              statusElement.textContent = controller.getMonoMythChapter(current);
+              statusElement.textContent = "The " + adjectives.getAdjective[controller.getLevel()] + " " + controller.getMonoMythChapter(current) + " of the " + controller.getMonoMythChapter(controller.getStage());
               statusElement.style.backgroundColor = controller.getMonoMythColour(current);
               levelElement.textContent = "LEVEL: "+ controller.getLevel();
               stageElement.textContent = "STAGE: "+ controller.getStage();

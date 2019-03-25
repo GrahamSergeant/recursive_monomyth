@@ -14,12 +14,12 @@ body{
   align-items: center;
   flex-shrink: 1;
   z-index: 3;
-  font-size: 3vh;
+  font-size: 2vh;
 }
 
 .status{
   width: 100%;
-  font-size: 5vw;
+  font-size: 3vw;
   text-align: center;
   color: white;
   background-color: black;
