@@ -1,6 +1,5 @@
 html{
   font-family: 'Holtwood One SC', serif;
-
 }
 
 body{
@@ -19,8 +18,10 @@ body{
 }
 
 .status{
+  will-change: transform;
+  transform: translateZ(0);
   width: 100%;
-  font-size: 3vw;
+  font-size: 2.4vw;
   text-align: center;
   color: white;
   background-color: black;
@@ -29,7 +30,29 @@ body{
 
 }
 
+.level{
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.stage{
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.chapter{
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.challenges{
+  will-change: transform;
+  transform: translateZ(0);
+}
+
 button{
+  will-change: transform;
+  transform: translateZ(0);
   font-family: 'Holtwood One SC', serif;
   color: white;
   border-color: black;
@@ -39,12 +62,25 @@ button{
   font-size: 20px;
 }
 
+button:hover {background-color: darkgrey}
+
+button:active {
+  background-color: black;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
 input{
+  will-change: transform;
+  transform: translateZ(0);
   font-family: 'Holtwood One SC', serif;
   font-size: 20px;
 }
 
 #curve_chart{
+  will-change: transform;
+  transform: translateZ(0);
   text-align: center;
   margin: 0 auto;
   width: 80vw;
@@ -52,6 +88,8 @@ input{
 }
 
 #wordtree_basic{
+  will-change: transform;
+  transform: translateZ(0);
   width: 80%;
   height: 1000px;
 }

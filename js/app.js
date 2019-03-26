@@ -1,3 +1,7 @@
+
+// make sure each rendered element is it's own promoted layer
+//done - styled button
+
 (function(){
   let model = {
       init : function(){
@@ -133,9 +137,10 @@
             statusElement.textContent = "The " + adjectives.getAdjective[controller.getLevel()] + " " + startState.chapter + " of the " + startState.chapter;
             statusElement.style.backgroundColor = startState.colour;
             let challenge = document.getElementsByClassName("challenge")[0];
-            challenge.onclick = function(){self.render(statusElement, levelElement, stageElement, chapterElement, challengesAttemptedElement, controller.randomResult())};
+            challenge.onclick = function(){self.state(statusElement, levelElement, stageElement, chapterElement, challengesAttemptedElement, controller.randomResult())};
     },
-    render : function(statusElement, levelElement, stageElement, chapterElement, challengesAttemptedElement, challengeOutcome){
+    state : function(statusElement, levelElement, stageElement, chapterElement, challengesAttemptedElement, challengeOutcome){
+              let self = this;
               controller.setChallengesDone();
               let challengeOutput = document.getElementsByClassName("outcome")[0];
               if (challengeOutcome === true){
@@ -182,7 +187,7 @@
                 }
               } else {
                 //fail
-                challengeOutput.value = 'Fail'
+                challengeOutput.value = 'Fail';
                 //level regression
                 let level = controller.getLevel();
                 if (level < 98){
@@ -190,21 +195,51 @@
                 }
                 controller.setLevel(level);
               }
-              // display status, level, stage, chapter
-              statusElement.textContent = "The " + adjectives.getAdjective[controller.getLevel()] + " " + controller.getMonoMythChapter(controller.getChapter()) + " of the " + controller.getMonoMythChapter(controller.getStage());
-              //
-              statusElement.style.backgroundColor = controller.getMonoMythColour(controller.getChapter());
-              levelElement.textContent = "LEVEL: "+ controller.getLevel();
-              stageElement.textContent = "STAGE: "+ controller.getStage();
-              chapterElement.textContent = "CHAPTER: "+ controller.getChapter();
-              challengesAttemptedElement.textContent = "CHALLENGES ATEMPTED: "+ controller.getChallengesDone();
-              //update graph
-              controller.setChartData();
-              drawChart(controller.getChartData());
-              //update wordtree
-              controller.setWordTreeData();
-              drawTree(controller.getWordTreeData());
-            }
+              // render status, level, stage, chapter, challenges attempted, graph and wordtree in a concurrent chain
+              self.renderStatusElement(statusElement).then(function(){
+                  self.renderLevelElement(levelElement).then(function(){
+                    self.renderStageElement(stageElement).then(function(){
+                      self.renderChapterElement(chapterElement).then(function(){
+                        self.renderchallengesAttemptedElement(challengesAttemptedElement).then(function(){
+                          self.renderChartData().then(function(){
+                            self.renderWordTree();
+                          });
+                        });
+                      });
+                    });
+                  });
+              });
+            },
+      renderStatusElement : function(statusElement){
+                      statusElement.textContent = "The " + adjectives.getAdjective[controller.getLevel()] + " " + controller.getMonoMythChapter(controller.getChapter()) + " of the " + controller.getMonoMythChapter(controller.getStage());
+                      statusElement.style.backgroundColor = controller.getMonoMythColour(controller.getChapter());
+                      return new Promise(function(resolve){resolve()});
+      },
+      renderLevelElement : function(levelElement){
+                      levelElement.textContent = "LEVEL: "+ controller.getLevel();
+                      return new Promise(function(resolve){resolve()});
+      },
+      renderStageElement : function(stageElement){
+                              stageElement.textContent = "STAGE: "+ controller.getStage();
+                              return new Promise(function(resolve){resolve()});
+      },
+      renderChapterElement : function(chapterElement){
+                                chapterElement.textContent = "CHAPTER: "+ controller.getChapter();
+                                return new Promise(function(resolve){resolve()});
+      },
+      renderchallengesAttemptedElement : function(challengesAttemptedElement){
+                                            challengesAttemptedElement.textContent = "CHALLENGES ATEMPTED: "+ controller.getChallengesDone();
+                                            return new Promise(function(resolve){resolve()});
+      },
+      renderChartData : function(){
+                          controller.setChartData();
+                          drawChart(controller.getChartData());
+                          return new Promise(function(resolve){resolve()});
+      },
+      renderWordTree : function(){
+                          controller.setWordTreeData();
+                          drawTree(controller.getWordTreeData());
+      }
     };
  controller.init();
 })();
