@@ -1,7 +1,3 @@
-
-// make sure each rendered element is it's own promoted layer
-//done - styled button
-
 (function(){
   let model = {
       init : function(){
@@ -195,14 +191,15 @@
                 }
                 controller.setLevel(level);
               }
-              // render status, level, stage, chapter, challenges attempted, graph and wordtree in a concurrent chain
-              self.renderStatusElement(statusElement).then(function(){
-                  self.renderLevelElement(levelElement).then(function(){
-                    self.renderStageElement(stageElement).then(function(){
-                      self.renderChapterElement(chapterElement).then(function(){
-                        self.renderchallengesAttemptedElement(challengesAttemptedElement).then(function(){
-                          self.renderChartData().then(function(){
-                            self.renderWordTree();
+              // render status, level, stage, chapter, challenges attempted, graph and wordtree in a sequential chain
+              self.renderStatusElement(statusElement).then(function(result){console.log("rendering #1: " + result);
+                  self.renderLevelElement(levelElement).then(function(result){console.log("rendering #2: " + result);
+                    self.renderStageElement(stageElement).then(function(result){console.log("rendering #3: " + result);
+                      self.renderChapterElement(chapterElement).then(function(result){console.log("rendering #4: " + result);
+                        self.renderchallengesAttemptedElement(challengesAttemptedElement).then(function(result){console.log("rendering #5: " + result);
+                          self.renderChartData().then(function(result){console.log("rendering #6: " + result);
+                            self.renderWordTree().then(function(result){console.log("rendering #7: " + result);
+                            });
                           });
                         });
                       });
@@ -213,32 +210,34 @@
       renderStatusElement : function(statusElement){
                       statusElement.textContent = "The " + adjectives.getAdjective[controller.getLevel()] + " " + controller.getMonoMythChapter(controller.getChapter()) + " of the " + controller.getMonoMythChapter(controller.getStage());
                       statusElement.style.backgroundColor = controller.getMonoMythColour(controller.getChapter());
-                      return new Promise(function(resolve){resolve()});
+                      return new Promise(function(resolve){setTimeout(function(){resolve('rendered status')}, 100);});
+                      
       },
       renderLevelElement : function(levelElement){
                       levelElement.textContent = "LEVEL: "+ controller.getLevel();
-                      return new Promise(function(resolve){resolve()});
+                      return new Promise(function(resolve){setTimeout(function(){resolve('rendered level')}, 100);});
       },
       renderStageElement : function(stageElement){
                               stageElement.textContent = "STAGE: "+ controller.getStage();
-                              return new Promise(function(resolve){resolve()});
+                              return new Promise(function(resolve){setTimeout(function(){resolve('rendered stage')}, 100);});
       },
       renderChapterElement : function(chapterElement){
                                 chapterElement.textContent = "CHAPTER: "+ controller.getChapter();
-                                return new Promise(function(resolve){resolve()});
+                                return new Promise(function(resolve){setTimeout(function(){resolve('rendered chapter')}, 100);});
       },
       renderchallengesAttemptedElement : function(challengesAttemptedElement){
                                             challengesAttemptedElement.textContent = "CHALLENGES ATEMPTED: "+ controller.getChallengesDone();
-                                            return new Promise(function(resolve){resolve()});
+                                            return new Promise(function(resolve){setTimeout(function(){resolve('rendered challenges attempted')}, 100);});
       },
       renderChartData : function(){
                           controller.setChartData();
                           drawChart(controller.getChartData());
-                          return new Promise(function(resolve){resolve()});
+                          return new Promise(function(resolve){setTimeout(function(){resolve('rendered graph')}, 100);});
       },
       renderWordTree : function(){
                           controller.setWordTreeData();
                           drawTree(controller.getWordTreeData());
+                          return new Promise(function(resolve){setTimeout(function(){resolve('rendered tree')}, 100);});
       }
     };
  controller.init();
