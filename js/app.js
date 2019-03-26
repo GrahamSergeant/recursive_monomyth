@@ -3,14 +3,13 @@
       init : function(){
         return this.monoMythChapters[0];
       },
-
       monoMythChapters : [
       {
         chapter: "Ordinary World",
         colour: "DeepSkyBlue",
       },
       {
-        chapter: "Call to Adventure",
+        chapter: "Calling",
         colour: "OrangeRed",
       },
       {
@@ -18,19 +17,19 @@
         colour: "DarkSlateGray",
       },
       {
-        chapter: "Meeting with the Mentor",
+        chapter: "Mentor",
         colour: "Indigo",
       },
       {
-        chapter: "Crossing the Threshold",
+        chapter: "Threshold",
         colour: "SpringGreen",
       },
       {
-        chapter: "Tests, Allies, Enemies",
+        chapter: "Tests",
         colour: "Fuchsia",
       },
       {
-        chapter: "Approach to the inmost cave",
+        chapter: "Approach",
         colour: "Sienna",
       },
       {
@@ -38,11 +37,11 @@
         colour: "CornflowerBlue",
       },
       {
-        chapter: "Reward (Seizing the Sword)",
+        chapter: "Reward",
         colour: "Gold",
       },
       {
-        chapter: "Road Back",
+        chapter: "Homebound",
         colour: "YellowGreen",
       },
       {
@@ -50,7 +49,7 @@
         colour: "Maroon",
       },
       {
-        chapter: "Return with Elixir",
+        chapter: "Elixir",
         colour: "MediumBlue",
       }
     ],
@@ -104,17 +103,18 @@
       return(model.chartData);
     },
     setWordTreeData : function(){
-      model.wordTreeData.push(['L' + this.getLevel() + ' S' + this.getStage() +  ' C' + this.getChapter()])
+      model.wordTreeData.push(['Your_StoryWorld Map / ' + controller.getMonoMythChapter(controller.getStage()) + ' Stage / The ' + adjectives.getAdjective[controller.getLevel()] + ' ' + controller.getMonoMythChapter(controller.getChapter())+' Chapter']);
     },
     getWordTreeData : function(){
       return(model.wordTreeData);
     },
     randomResult : function(){
-      //random selection - as level increases: 0 - 99 value range
-      //chance scaled from 0 = 1% chance of pass to 100 = 100% chance of pass
       let currentLevel = this.getLevel();
-      currentLevel++
-      if (currentLevel < Math.floor(Math.random() * Math.floor(99))){
+      let currentStage = this.getStage();
+      let currentChapter = this.getChapter();
+      let currentChallengeDone = this.getChallengesDone();
+      currentLevel++;
+      if (currentLevel < Math.floor(Math.random() * Math.floor((99 - (currentChallengeDone / 6) - (currentChapter * currentStage))))){
         return false;
       } else {
         return true;
@@ -129,12 +129,13 @@
             let levelElement = document.getElementsByClassName("level")[0];
             let stageElement = document.getElementsByClassName("stage")[0];
             let chapterElement = document.getElementsByClassName("chapter")[0];
+            let challengesAttemptedElement = document.getElementsByClassName("challenges")[0];
             statusElement.textContent = "The " + adjectives.getAdjective[controller.getLevel()] + " " + startState.chapter + " of the " + startState.chapter;
             statusElement.style.backgroundColor = startState.colour;
             let challenge = document.getElementsByClassName("challenge")[0];
-            challenge.onclick = function(){self.render(statusElement, levelElement, stageElement, chapterElement, controller.randomResult())};
+            challenge.onclick = function(){self.render(statusElement, levelElement, stageElement, chapterElement, challengesAttemptedElement, controller.randomResult())};
     },
-    render : function(statusElement, levelElement, stageElement, chapterElement, challengeOutcome){
+    render : function(statusElement, levelElement, stageElement, chapterElement, challengesAttemptedElement, challengeOutcome){
               controller.setChallengesDone();
               let challengeOutput = document.getElementsByClassName("outcome")[0];
               if (challengeOutcome === true){
@@ -196,6 +197,7 @@
               levelElement.textContent = "LEVEL: "+ controller.getLevel();
               stageElement.textContent = "STAGE: "+ controller.getStage();
               chapterElement.textContent = "CHAPTER: "+ controller.getChapter();
+              challengesAttemptedElement.textContent = "CHALLENGES ATEMPTED: "+ controller.getChallengesDone();
               //update graph
               controller.setChartData();
               drawChart(controller.getChartData());

@@ -4,7 +4,7 @@
 function drawTree(newData) {
         let data = google.visualization.arrayToDataTable(
           [ ['Phrases'],
-            ['Storyworld L0 S0 C0']
+            ['']
           ]
         );
         if (newData){
@@ -15,7 +15,9 @@ function drawTree(newData) {
         var options = {
           wordtree: {
             format: 'implicit',
-            word: 'storyworld'
+            word: 'Your_StoryWorld',
+            height: 1000,
+            maxFontSize: 5
           }
         };
         var chart = new google.visualization.WordTree(document.getElementById('wordtree_basic'));

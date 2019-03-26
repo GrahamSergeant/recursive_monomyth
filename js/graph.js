@@ -12,7 +12,7 @@ google.charts.load('current', {'packages':['corechart']});
       }
       var options = {
       legend: { position: 'top' },
-      title: 'Progress Graph',
+      title: 'Your StoryWorld Progress Graph',
       
       
       trendlines: {
